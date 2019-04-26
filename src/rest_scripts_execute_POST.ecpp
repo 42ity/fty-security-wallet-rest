@@ -1,0 +1,149 @@
+<#
+ #
+ # Copyright (C) 2018 Eaton
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+ # (at your option) any later version.
+ #
+ # This program is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License along
+ # with this program; if not, write to the Free Software Foundation, Inc.,
+ # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ #
+ #><#
+/*!
+ * \file rest_scripts_POST.ecpp
+ * \author Jean-Baptiste Boric <Jean-BaptisteBORIC@Eaton.com>
+ * \brief Implementation of POST operations on scripts
+ */
+ #><%pre>
+#include <algorithm>
+#include <string>
+#include <fstream>
+
+#include <sys/types.h>
+#include <dirent.h>
+#include <spawn.h>
+#include <unistd.h>
+
+#include <fty_common_rest_helpers.h>
+#include <cxxtools/jsondeserializer.h>
+#include <cxxtools/jsonserializer.h>
+#include <cxxtools/regex.h>
+#include <fty_common_mlm_subprocess.h>
+
+#include "helpers.h"
+
+</%pre>
+<%request scope="global">
+UserInfo user;
+//std::string gaccess_token;
+</%request>
+<%cpp>
+    // Check user permissions.
+    static const std::map <BiosProfile, std::string> PERMISSIONS = {
+            {BiosProfile::Admin, "C"}
+    };
+
+    CHECK_USER_PERMISSIONS_OR_DIE(PERMISSIONS);
+
+    // Deserialize request.
+    cxxtools::SerializationInfo in;
+    {
+        std::istringstream iss(request.getBody());
+        cxxtools::JsonDeserializer deserializer(iss);
+        deserializer.deserialize(in);
+    }
+
+    // Grab request variables.
+    std::string name;
+    in.getMember("name").getValue(name);
+    std::string checked_name;
+    check_regex_text_or_die("name", name, checked_name, SCRIPT_FILENAME_REGEX);
+
+    std::vector<std::string> parameters, env;
+    {
+        std::string array_parsing = "parameters";
+        try
+        {
+            cxxtools::SerializationInfo *siParameters = in.findMember("parameters"), *siEnv = in.findMember("env");
+            if (siParameters) {
+                *siParameters >>= parameters;
+            }
+            array_parsing = "env";
+            if (siEnv) {
+                *siEnv >>= env;
+            }
+        }
+        catch (std::runtime_error &e) {
+            http_die("request-param-bad", array_parsing.c_str(), e.what(), "Array of strings");
+        }
+    }
+
+    std::string timeout;
+    {
+        int timeoutInt = 60;
+        in.getMember("timeout", timeoutInt);
+        timeout = std::to_string(timeoutInt);
+        if (timeoutInt < 1 || timeoutInt > 300) {
+            http_die("request-param-bad", "timeout", timeout.c_str(), "1 <= timeout <= 300");
+        }
+    }
+
+    double execution_time;
+    int status;
+    std::ostringstream output;
+    struct timeval tvStart, tvEnd;
+
+    // Build child's argv.
+    std::vector<std::string> argv;
+
+    argv.push_back("/usr/bin/sudo");
+    argv.push_back("/usr/libexec/fty/run-user-script");
+    for (const auto &i : env) {
+        argv.push_back("-e");
+        argv.push_back(i.c_str());
+    }
+    argv.push_back("-t");
+    argv.push_back(timeout.c_str());
+    argv.push_back(checked_name.c_str());
+    for (const auto &i : parameters) {
+        argv.push_back(i.c_str());
+    }
+
+    // Launch child.
+    gettimeofday(&tvStart, nullptr);
+
+    MlmSubprocess::SubProcess child(argv, MlmSubprocess::SubProcess::STDOUT_PIPE|MlmSubprocess::SubProcess::STDERR_TO_STDOUT_PIPE);
+    if (!child.run()) {
+        http_die("internal-error", "Error while spawning process");
+    }
+
+    // Slurp output.
+    char buffer[4096];
+    int buffer_read;
+    while ((buffer_read = read(child.getStdout(), buffer, sizeof(buffer))) > 0) {
+        output.write(buffer, buffer_read);
+    }
+
+    status = child.wait(true);
+    gettimeofday(&tvEnd, nullptr);
+
+    execution_time = (tvEnd.tv_sec - tvStart.tv_sec) + (tvEnd.tv_usec - tvStart.tv_usec) / 1000000.0;
+
+    // Serialize reply.
+    cxxtools::SerializationInfo out;
+    out.addValue("execution_time", execution_time);
+    out.addValue("result", status);
+    out.addValue("output", output.str());
+    {
+        cxxtools::JsonSerializer serializer(reply.out());
+        serializer.serialize(out).finish();
+    }
+</%cpp>

@@ -1,0 +1,67 @@
+<#
+ #
+ # Copyright (C) 2018 Eaton
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+ # (at your option) any later version.
+ #
+ # This program is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License along
+ # with this program; if not, write to the Free Software Foundation, Inc.,
+ # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ #
+ #><#
+/*!
+ * \file rest_scripts_DELETE.ecpp
+ * \author Jean-Baptiste Boric <Jean-BaptisteBORIC@Eaton.com>
+ * \brief Implementation of DELETE operations on scripts
+ */
+ #><%pre>
+#include <string>
+#include <fstream>
+
+#include <fty_common_rest_helpers.h>
+#include <cxxtools/jsonserializer.h>
+#include <cxxtools/regex.h>
+
+#include "helpers.h"
+
+</%pre>
+<%request scope="global">
+UserInfo user;
+//std::string gaccess_token;
+</%request>
+<%cpp>
+    // check user permissions
+    static const std::map <BiosProfile, std::string> PERMISSIONS = {
+            {BiosProfile::Admin, "D"}
+    };
+
+    CHECK_USER_PERMISSIONS_OR_DIE(PERMISSIONS);
+
+    // Check valid filename.
+    std::string name = qparam.param("name");
+    std::string checked_name;
+    check_regex_text_or_die("name", name, checked_name, SCRIPT_FILENAME_REGEX);
+
+    if (unlink((SCRIPT_DIRECTORY+checked_name).c_str()) == -1) {
+        if (errno == ENOENT) {
+            http_die("not-found", checked_name.c_str());
+        }
+        else {
+            http_die("internal-error", "Error while trying to delete script");
+        }
+    }
+
+    // Serialize output.
+    cxxtools::SerializationInfo si;
+    si.addValue("name", checked_name);
+    cxxtools::JsonSerializer serializer(reply.out());
+    serializer.serialize(si).finish();
+</%cpp>

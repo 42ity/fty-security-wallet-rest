@@ -1,0 +1,28 @@
+    <!-- List scripts/Export script -->
+    <mapping>
+      <target>rest_scripts_GET@libfty_scripts_rest</target>
+      <url>^/api/v1/admin/scripts$</url>
+      <method>GET</method>
+    </mapping>
+
+    <!-- Import script -->
+    <mapping>
+      <target>rest_scripts_POST@libfty_scripts_rest</target>
+      <url>^/api/v1/admin/scripts$</url>
+      <method>POST</method>
+    </mapping>
+
+    <!-- Delete script -->
+    <mapping>
+      <target>rest_scripts_DELETE@libfty_scripts_rest</target>
+      <url>^/api/v1/admin/scripts$</url>
+      <method>DELETE</method>
+    </mapping>
+
+    <!-- Execute script -->
+    <mapping>
+      <target>rest_scripts_execute_POST@libfty_scripts_rest</target>
+      <url>^/api/v1/admin/scripts/execute$</url>
+      <method>POST</method>
+    </mapping>
+
