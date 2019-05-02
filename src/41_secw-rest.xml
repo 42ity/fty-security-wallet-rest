@@ -1,0 +1,36 @@
+<!-- Documents collection -->
+    <!-- Create a document -->
+    <mapping>
+      <target>rest_documents_GET@libfty_security_wallet_rest</target>
+      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z-]+)/documents$</url>
+      <method>POST</method>
+    </mapping>
+
+    <!-- Read document collection-->
+    <mapping>
+      <target>rest_documents_POST@libfty_security_wallet_rest</target>
+      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z-]+)/documents$</url>
+      <method>GET</method>
+    </mapping>
+
+ <!-- Single document -->
+    <!-- Read document -->
+    <mapping>
+      <target>rest_documents_POST@libfty_security_wallet_rest</target>
+      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z_-]+)/documents/([a-zA-Z_-]+)$</url>
+      <method>GET</method>
+    </mapping>
+
+    <!-- Update document -->
+    <mapping>
+      <target>rest_documents_POST@libfty_security_wallet_rest</target>
+      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z_-]+)/documents/([a-zA-Z_-]+)$</url>
+      <method>PUT</method>
+    </mapping>
+
+    <!-- Delete document -->
+    <mapping>
+      <target>rest_documents_POST@libfty_security_wallet_rest</target>
+      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z_-]+)/documents/([a-zA-Z_-]+)$</url>
+      <method>DELETE</method>
+    </mapping>

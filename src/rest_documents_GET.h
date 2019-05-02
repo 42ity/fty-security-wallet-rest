@@ -18,28 +18,3 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
     =========================================================================
 */
-
-#ifndef REST_DOCUMENTS_GET_H_INCLUDED
-#define REST_DOCUMENTS_GET_H_INCLUDED
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-//  @interface
-//  Create a new rest_documents_get
-FTY_SECURITY_WALLET_REST_PRIVATE rest_documents_get_t *
-    rest_documents_get_new (void);
-
-//  Destroy the rest_documents_get
-FTY_SECURITY_WALLET_REST_PRIVATE void
-    rest_documents_get_destroy (rest_documents_get_t **self_p);
-
-
-//  @end
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
