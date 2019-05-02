@@ -63,6 +63,7 @@ BuildRequires:  cyrus-sasl-devel
 BuildRequires:  tntdb-devel
 BuildRequires:  fty-common-db-devel
 BuildRequires:  fty-common-rest-devel
+BuildRequires:  fty-security-wallet-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description

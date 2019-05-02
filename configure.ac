@@ -1352,6 +1352,90 @@ dnl END of PKG_CHECK_MODULES and/or direct tests for libfty_common_rest
 dnl END of enabled attempts to search for libfty_common_rest
 
 
+was_fty_security_wallet_check_lib_detected=no
+
+search_libfty_security_wallet="yes"
+
+AC_ARG_WITH([libfty_security_wallet],
+    [
+        AS_HELP_STRING([--with-libfty_security_wallet],
+        [yes or no. Optionally specify libfty_security_wallet prefix (directory where its include/ and lib/ are located), but that is only used if pkgconfig metadata is not found first])
+    ],
+    [
+        search_libfty_security_wallet="yes"
+    ],
+    [
+        search_libfty_security_wallet="yes"
+    ])
+AS_CASE([x"${with_libfty_security_wallet}"],
+    [xyes], [search_libfty_security_wallet="yes"],
+    [xno],  [search_libfty_security_wallet="no"])
+
+dnl We do not abort right now, because the maintainer/developer may have
+dnl something particular in mind, e.g. to build just parts of a project.
+AS_IF([test x"${search_libfty_security_wallet}" = xno],
+    [AC_MSG_WARN([Required dependency on fty_security_wallet was explicitly disabled during configuration by '--with-libfty_security_wallet=no'; subsequent full build of fty-security-wallet-rest may fail])])
+
+AS_IF([test x"${search_libfty_security_wallet}" = xyes], [
+    # Archive previously detected and supplied flags
+    PRE_SEARCH_CFLAGS="${CFLAGS}"
+    PRE_SEARCH_LIBS="${LIBS}"
+
+    found_pkgconfig=""
+    PKG_CHECK_MODULES([fty_security_wallet], [libfty_security_wallet >= 0.0.0],
+    [
+        was_fty_security_wallet_check_lib_detected=pkgcfg
+        found_pkgconfig="libfty_security_wallet"
+    ],
+    [
+        AC_MSG_NOTICE([Package libfty_security_wallet not found; falling back to defined compilability tests])
+
+        fty_security_wallet_synthetic_cflags=""
+        fty_security_wallet_synthetic_libs="-lfty-security-wallet"
+
+        if test -n "${with_libfty_security_wallet}" && test x"${with_libfty_security_wallet}" != xyes && test x"${with_libfty_security_wallet}" != xno; then
+            if test -r "${with_libfty_security_wallet}/include/fty_security_wallet.h"; then
+                fty_security_wallet_synthetic_cflags="-I${with_libfty_security_wallet}/include"
+                fty_security_wallet_synthetic_libs="-L${with_libfty_security_wallet}/lib -lfty-security-wallet"
+            else
+            AC_MSG_ERROR([Header file ${with_libfty_security_wallet}/include/fty_security_wallet.h was not found. Please check libfty_security_wallet prefix])
+            fi
+        else
+            AC_CHECK_HEADER([fty_security_wallet.h], [],
+            AC_MSG_ERROR([Header file fty_security_wallet.h was not found in default search paths])
+                )
+        fi
+
+        AC_CHECK_LIB([fty-security-wallet], [fty_security_wallet_selftest],
+            [
+                was_fty_security_wallet_check_lib_detected=yes
+                PKGCFG_LIBS_PRIVATE="$PKGCFG_LIBS_PRIVATE -lfty-security-wallet"
+            ],
+            [AC_MSG_ERROR([cannot link with -lfty-security-wallet, install libfty_security_wallet])])
+    ])
+
+dnl END of PKG_CHECK_MODULES and/or direct tests for libfty_security_wallet
+    AS_CASE(["x${was_fty_security_wallet_check_lib_detected}"],
+        [xpkgcfg], [
+                PKGCFG_NAMES_PRIVATE="$PKGCFG_NAMES_PRIVATE ${found_pkgconfig}"
+                CFLAGS="${fty_security_wallet_CFLAGS} ${CFLAGS}"
+                LIBS="${fty_security_wallet_LIBS} ${LIBS}"
+            ],
+        [xyes], [
+                CFLAGS="${fty_security_wallet_synthetic_cflags} ${CFLAGS}"
+                LDFLAGS="${fty_security_wallet_synthetic_libs} ${LDFLAGS}"
+                LIBS="${fty_security_wallet_synthetic_libs} ${LIBS}"
+
+                AC_SUBST([fty_security_wallet_CFLAGS],[${fty_security_wallet_synthetic_cflags}])
+                AC_SUBST([fty_security_wallet_LIBS],[${fty_security_wallet_synthetic_libs}])
+            ],
+        [xno], [
+            AC_MSG_ERROR([Cannot find pkg-config metadata for libfty_security_wallet 0.0.0 or higher])
+    ])
+])
+dnl END of enabled attempts to search for libfty_security_wallet
+
+
 CFLAGS="${PREVIOUS_CFLAGS}"
 LIBS="${PREVIOUS_LIBS}"
 

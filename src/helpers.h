@@ -24,11 +24,11 @@
 
 namespace restapi
 {
-    static constexpr char* END_POINT = "ipc://@/malamute";
-    static constexpr char* CLIENT_ID = "fty-security-wallet-rest";
+    static constexpr char END_POINT[] = "ipc://@/malamute";
+    static constexpr char CLIENT_ID[] = "fty-security-wallet-rest";
 
     //URL_PREFIX = /api/v1/admin/security-wallet/
-    static constexpr size_t URL_PREFIX_SIZE = 4
+    static constexpr size_t URL_PREFIX_SIZE = 4;
 
     class Path
     {

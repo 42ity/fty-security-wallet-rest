@@ -45,12 +45,12 @@ namespace restapi
     }
     const std::string & Path::getItem(size_t index) const
     {
-        return m_item.at(index);
+        return m_items.at(index);
     }
 
     size_t Path::getNumberOfItem() const
     {
-        return m_item.size();
+        return m_items.size();
     }
 }
 
