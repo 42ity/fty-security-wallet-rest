@@ -181,3 +181,4 @@ deploy:
     branch: master
     tags: true
     condition: $TRAVIS_OS_NAME =~ (linux) && $BUILD_TYPE =~ (default)
+
