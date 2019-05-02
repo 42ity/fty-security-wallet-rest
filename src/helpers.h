@@ -19,38 +19,31 @@
     =========================================================================
 */
 
-#include "fty_security_wallet_rest_classes.h"
+#ifndef RESTAPI_HELPERS_H_INCLUDED
+#define RESTAPI_HELPERS_H_INCLUDED
 
 namespace restapi
 {
-    Path::Path(const std::string & pathStr)
-        : m_pathStr(pathStr)
-    {
-        std::stringstream stream;
-        stream << m_pathStr;
-        std::string item;
+    static constexpr char* END_POINT = "ipc://@/malamute";
+    static constexpr char* CLIENT_ID = "fty-security-wallet-rest";
 
-        while(std::getline(stream, item, '/'))
-        {
-            if(!item.empty())
-            {
-                m_items.push_back(item);
-            }
-        }
-    }
+    //URL_PREFIX = /api/v1/admin/security-wallet/
+    static constexpr size_t URL_PREFIX_SIZE = 4
 
-    const std::string & Path::getPathStr() const
+    class Path
     {
-        return m_pathStr;
-    }
-    const std::string & Path::getItem(size_t index) const
-    {
-        return m_item.at(index);
-    }
+    public:
+        Path(const std::string & pathStr);
 
-    size_t Path::getNumberOfItem() const
-    {
-        return m_item.size();
-    }
-}
+        const std::string & getPathStr() const;
+        const std::string & getItem(size_t index) const;
+        size_t getNumberOfItem() const;
 
+    private:
+        std::string m_pathStr;
+        std::vector<std::string> m_items;
+    };
+   
+} //namepace restapi
+
+#endif

@@ -1,5 +1,5 @@
 /*  =========================================================================
-    rest_scripts_delete - class description
+    rest_document_put - class description
 
     Copyright (C) 2014 - 2018 Eaton
 

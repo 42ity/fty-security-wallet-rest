@@ -70,10 +70,12 @@ EXTRA_DIST += \
 endif
 
 EXTRA_DIST += \
-    src/rest_scripts_GET.h \
-    src/rest_scripts_POST.h \
-    src/rest_scripts_DELETE.h \
-    src/rest_scripts_execute_POST.h \
+    src/helpers.h \
+    src/rest_documents_POST.h \
+    src/rest_documents_GET.h \
+    src/rest_document_GET.h \
+    src/rest_document_PUT.h \
+    src/rest_document_DELETE.h \
     README.md \
     src/fty_security_wallet_rest_classes.h
 

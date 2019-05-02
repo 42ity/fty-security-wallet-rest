@@ -1,5 +1,5 @@
 /*  =========================================================================
-    rest_scripts_post - class description
+    rest_document_get - class description
 
     Copyright (C) 2014 - 2018 Eaton
 

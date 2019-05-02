@@ -11,8 +11,6 @@
 *.xml7
 
 # Ignore the source doc texts generated from program sources
-helpers.txt
-helpers.doc
 
 # Make sure to track the manually maintained project description
 !*.adoc

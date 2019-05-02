@@ -33,21 +33,29 @@
 #include "../include/fty-security-wallet-rest.h"
 
 //  Opaque class structures to allow forward references
-#ifndef REST_SCRIPTS_GET_T_DEFINED
-typedef struct _rest_scripts_get_t rest_scripts_get_t;
-#define REST_SCRIPTS_GET_T_DEFINED
+#ifndef HELPERS_T_DEFINED
+typedef struct _helpers_t helpers_t;
+#define HELPERS_T_DEFINED
 #endif
-#ifndef REST_SCRIPTS_POST_T_DEFINED
-typedef struct _rest_scripts_post_t rest_scripts_post_t;
-#define REST_SCRIPTS_POST_T_DEFINED
+#ifndef REST_DOCUMENTS_POST_T_DEFINED
+typedef struct _rest_documents_post_t rest_documents_post_t;
+#define REST_DOCUMENTS_POST_T_DEFINED
 #endif
-#ifndef REST_SCRIPTS_DELETE_T_DEFINED
-typedef struct _rest_scripts_delete_t rest_scripts_delete_t;
-#define REST_SCRIPTS_DELETE_T_DEFINED
+#ifndef REST_DOCUMENTS_GET_T_DEFINED
+typedef struct _rest_documents_get_t rest_documents_get_t;
+#define REST_DOCUMENTS_GET_T_DEFINED
 #endif
-#ifndef REST_SCRIPTS_EXECUTE_POST_T_DEFINED
-typedef struct _rest_scripts_execute_post_t rest_scripts_execute_post_t;
-#define REST_SCRIPTS_EXECUTE_POST_T_DEFINED
+#ifndef REST_DOCUMENT_GET_T_DEFINED
+typedef struct _rest_document_get_t rest_document_get_t;
+#define REST_DOCUMENT_GET_T_DEFINED
+#endif
+#ifndef REST_DOCUMENT_PUT_T_DEFINED
+typedef struct _rest_document_put_t rest_document_put_t;
+#define REST_DOCUMENT_PUT_T_DEFINED
+#endif
+#ifndef REST_DOCUMENT_DELETE_T_DEFINED
+typedef struct _rest_document_delete_t rest_document_delete_t;
+#define REST_DOCUMENT_DELETE_T_DEFINED
 #endif
 
 //  Extra headers
@@ -91,10 +99,12 @@ safe_malloc (size_t size, const char *file, unsigned line)
 #endif // __CZMQ_PRELUDE_H_INCLUDED__
 
 
-#include "rest_scripts_GET.h"
-#include "rest_scripts_POST.h"
-#include "rest_scripts_DELETE.h"
-#include "rest_scripts_execute_POST.h"
+#include "helpers.h"
+#include "rest_documents_POST.h"
+#include "rest_documents_GET.h"
+#include "rest_document_GET.h"
+#include "rest_document_PUT.h"
+#include "rest_document_DELETE.h"
 
 //  *** To avoid double-definitions, only define if building without draft ***
 #ifndef FTY_SECURITY_WALLET_REST_BUILD_DRAFT_API

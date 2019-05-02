@@ -1,5 +1,5 @@
 /*  =========================================================================
-    rest_scripts_execute_post - class description
+    rest_documents_post - class description
 
     Copyright (C) 2014 - 2018 Eaton
 
@@ -18,28 +18,3 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
     =========================================================================
 */
-
-#ifndef REST_SCRIPTS_EXECUTE_POST_H_INCLUDED
-#define REST_SCRIPTS_EXECUTE_POST_H_INCLUDED
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-//  @interface
-//  Create a new rest_scripts_execute_post
-FTY_SCRIPTS_REST_PRIVATE rest_scripts_execute_post_t *
-    rest_scripts_execute_post_new (void);
-
-//  Destroy the rest_scripts_execute_post
-FTY_SCRIPTS_REST_PRIVATE void
-    rest_scripts_execute_post_destroy (rest_scripts_execute_post_t **self_p);
-
-
-//  @end
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif

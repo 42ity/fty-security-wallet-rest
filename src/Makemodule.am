@@ -14,10 +14,11 @@ pkgconfig_DATA = src/libfty_security_wallet_rest.pc
 
 src_libfty_security_wallet_rest_la_SOURCES = \
     src/helpers.cc \
-    src/rest_scripts_GET.cc \
-    src/rest_scripts_POST.cc \
-    src/rest_scripts_DELETE.cc \
-    src/rest_scripts_execute_POST.cc \
+    src/rest_documents_POST.cc \
+    src/rest_documents_GET.cc \
+    src/rest_document_GET.cc \
+    src/rest_document_PUT.cc \
+    src/rest_document_DELETE.cc \
     src/platform.h
 
 if ENABLE_DRAFTS

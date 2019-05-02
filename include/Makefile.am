@@ -4,7 +4,6 @@
 ################################################################################
 nobase_include_HEADERS = \
     fty-security-wallet-rest.h \
-    helpers.h \
     fty_security_wallet_rest_library.h
 
 

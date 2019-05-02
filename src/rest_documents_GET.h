@@ -1,4 +1,6 @@
-/*
+/*  =========================================================================
+    rest_documents_get - class description
+
     Copyright (C) 2014 - 2018 Eaton
 
     This program is free software; you can redistribute it and/or modify
@@ -14,21 +16,30 @@
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+    =========================================================================
 */
-#ifndef FTY_SCRIPTS_REST_HELPERS_H
-#define FTY_SCRIPTS_REST_HELPERS_H
 
-#include <stdexcept>
-#include <string>
-#include <vector>
-#include <cxxtools/serializationinfo.h>
+#ifndef REST_DOCUMENTS_GET_H_INCLUDED
+#define REST_DOCUMENTS_GET_H_INCLUDED
 
-void operator>>=(const cxxtools::SerializationInfo &si, std::vector<std::string> &out);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-const std::string SCRIPT_FILENAME_REGEX = "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,254}$";
-const std::string SCRIPT_DIRECTORY = "/var/lib/fty/fty-scripts-rest/";
+//  @interface
+//  Create a new rest_documents_get
+FTY_SECURITY_WALLET_REST_PRIVATE rest_documents_get_t *
+    rest_documents_get_new (void);
 
-const int SCRIPT_FILE_MAX_SIZE = 64*1024;
-const int SCRIPT_MAX_FILES = 256;
+//  Destroy the rest_documents_get
+FTY_SECURITY_WALLET_REST_PRIVATE void
+    rest_documents_get_destroy (rest_documents_get_t **self_p);
+
+
+//  @end
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
