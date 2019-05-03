@@ -1,5 +1,5 @@
 /*
-    fty-scripts-rest - Scripts REST API
+    fty-security-wallet-rest - Scripts REST API
 
     Copyright (C) 2014 - 2018 Eaton
 
