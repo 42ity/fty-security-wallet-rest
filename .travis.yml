@@ -11,6 +11,17 @@ cache:
 os:
 - linux
 
+# Note: some packages or dependencies may require extended permissions
+# which take longer to set up and boot. If your project does not build
+# in the default container with sudo==false, consider requiring a docker
+# image and/or a newer Ubuntu Trusty baseline VM, by uncommenting below.
+# See the current docs on http://travis-ci.org for up-to-date options.
+# NOTE: Here we need this for .travis.fix* script(s) below.
+# The "sudo" in fixsasl script may require this enabled, depending on
+# distro and package versions.
+#sudo: false
+sudo: required
+
 #dist:
 #- xenial
 
@@ -166,6 +177,10 @@ before_install:
 - if [ "$TRAVIS_OS_NAME" == "osx" -a "$BUILD_TYPE" == "android" ] ; then brew install binutils ; fi
 - if [ "$TRAVIS_OS_NAME" == "osx" -a "$BUILD_TYPE" == "valgrind" ] ; then brew install valgrind ; fi
 - if [ "$CXX" == "g++" ] ; then export CXX="g++-4.9" CC="gcc-4.9" ; fi
+
+### Note: Fix up SASL pkgconfig before build
+before_script:
+- ./.travis.fixsasl
 
 # Hand off to generated script for each BUILD_TYPE
 script: ./ci_build.sh
