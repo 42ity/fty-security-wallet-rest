@@ -5,10 +5,11 @@ ECPPFLAGS = --nolog
 ECPPFLAGS_CPP=
 
 ECPPFILES= \
-  rest_scripts_GET.ecpp \
-  rest_scripts_POST.ecpp \
-  rest_scripts_DELETE.ecpp \
-  rest_scripts_execute_POST.ecpp
+	rest_document_DELETE.ecpp \
+	rest_document_GET.ecpp \
+	rest_document_PUT.ecpp \
+	rest_documents_GET.ecpp \
+	rest_documents_POST.ecpp
 
 TNTLIB_BASENAME=libfty_scripts_rest
 TNTLIB_DIRNAME=$(prefix)/lib/bios
