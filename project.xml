@@ -27,9 +27,6 @@
         <option name = "use_test_retry" value = "3" />
         <option name = "use_test_timeout" value = "30" />
 
-        <!-- Try both stable and draft source modes -->
-        <option name = "build_without_draft_api" value = "1" />
-
         <!-- Try to avoid avalanche rebuilds of same code on our CI -->
         <option name = "use_earlymilestone" value = "1" />
         <option name = "use_deploymilestone" value = "1" />
