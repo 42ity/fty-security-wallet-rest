@@ -100,6 +100,8 @@ pkg_src_zeromq_ubuntu16: &pkg_src_zeromq_ubuntu16
 # Note: refer to ubuntu16 if you use dist==xenial
 # Also note that as of early 2017, either dist==trusty or services==docker
 # is needed for C++11 support; docker envs are usually faster to start up
+# CUSTOMIZATION NOTE: APT sources below add "ubuntu-toolchain-r-test" and
+# the package list adds "gcc-4.9" and "g++-4.9" for proper C++11 support.
 addons:
   apt:
     sources: 
