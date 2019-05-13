@@ -39,6 +39,8 @@ typedef struct {
 
 static test_item_t
 all_tests [] = {
+// Tests for stable public classes:
+    { "stub_security_wallet_rest", stub_security_wallet_rest_test, true, true, NULL },
     {NULL, NULL, 0, 0, NULL}          //  Sentinel
 };
 

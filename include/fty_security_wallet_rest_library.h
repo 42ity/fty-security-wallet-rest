@@ -94,15 +94,14 @@
 #   endif
 #endif
 
-//  Project has no stable classes, so we build the draft API
-#undef  FTY_SECURITY_WALLET_REST_BUILD_DRAFT_API
-#define FTY_SECURITY_WALLET_REST_BUILD_DRAFT_API
-
 //  Opaque class structures to allow forward references
 //  These classes are stable or legacy and built in all releases
+typedef struct _stub_security_wallet_rest_t stub_security_wallet_rest_t;
+#define STUB_SECURITY_WALLET_REST_T_DEFINED
 
 
 //  Public classes, each with its own header file
+#include "stub_security_wallet_rest.h"
 
 #ifdef FTY_SECURITY_WALLET_REST_BUILD_DRAFT_API
 

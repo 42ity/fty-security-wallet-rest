@@ -31,7 +31,6 @@
 %else
 %define DRAFTS no
 %endif
-%global debug_package %{nil}
 Name:           fty-security-wallet-rest
 Version:        1.0.0
 Release:        1
@@ -74,10 +73,10 @@ fty-security-wallet-rest security wallet rest api.
 
 %package -n libfty_security_wallet_rest1
 Group:          System/Libraries
-Summary:        security_wallet rest api shared library
+Summary:        security wallet rest api shared library
 
 %description -n libfty_security_wallet_rest1
-This package contains shared library for fty-security-wallet-rest: security_wallet rest api
+This package contains shared library for fty-security-wallet-rest: security wallet rest api
 
 %post -n libfty_security_wallet_rest1 -p /sbin/ldconfig
 %postun -n libfty_security_wallet_rest1 -p /sbin/ldconfig
@@ -89,7 +88,7 @@ This package contains shared library for fty-security-wallet-rest: security_wall
 %{_libdir}/libfty_security_wallet_rest.so
 
 %package devel
-Summary:        security_wallet rest api
+Summary:        security wallet rest api
 Group:          System/Libraries
 Requires:       libfty_security_wallet_rest1 = %{version}
 Requires:       cxxtools-devel
@@ -97,8 +96,8 @@ Requires:       log4cplus-devel
 Requires:       fty-common-logging-devel
 Requires:       libsodium-devel
 Requires:       zeromq-devel
-Requires:       czmq-devel
-Requires:       malamute-devel
+Requires:       czmq-devel >= 3.0.2
+Requires:       malamute-devel >= 1.0.0
 Requires:       openssl-devel
 Requires:       fty-common-devel
 Requires:       fty-common-mlm-devel
@@ -107,17 +106,17 @@ Requires:       cyrus-sasl-devel
 Requires:       tntdb-devel
 Requires:       fty-common-db-devel
 Requires:       fty-common-rest-devel
+Requires:       fty-security-wallet-devel
 
 %description devel
-security_wallet rest api development tools
-This package contains development files for fty-security-wallet-rest: security_wallet rest api
+security wallet rest api development tools
+This package contains development files for fty-security-wallet-rest: security wallet rest api
 
 # Note: the .so file is delivered as part of main package for tntnet to find it
 %files devel
 %defattr(-,root,root)
 %{_includedir}/*
 ###%{_libdir}/libfty_security_wallet_rest.so
-%{_libdir}/libfty_security_wallet_rest.so
 %{_libdir}/pkgconfig/libfty_security_wallet_rest.pc
 %{_mandir}/man3/*
 %{_mandir}/man7/*

@@ -63,8 +63,8 @@ Depends:
     libfty-common-logging-dev,
     libsodium-dev,
     libzmq3-dev,
-    libczmq-dev,
-    libmlm-dev,
+    libczmq-dev (>= 3.0.2),
+    libmlm-dev (>= 1.0.0),
     libssl-dev,
     libfty-common-dev,
     libfty-common-mlm-dev,
@@ -82,6 +82,7 @@ Description: fty-security-wallet-rest development tools
 # Customization over zproject-generated code follows
 # for the legacy-named metapackage to group the common
 # installation dependency for other components:
+# TODO: Revise the list, this one was copied from another project
 Package: fty-security-wallet-rest
 Architecture: any
 Section: net
@@ -89,12 +90,12 @@ Priority: optional
 Depends:
     libfty-security-wallet-rest1 (= ${binary:Version}),
     ${misc:Depends},
-    augeas-tools,
-    tntdb-mysql4,
-    libcidr0,
     tntnet-runtime,
     malamute,
-    cracklib-runtime,
+    libfty-common,
+    libfty-common-mlm,
+    libfty-common-db,
+    libfty-common-rest,
     ipc-data
 Recommends: msmtp
 Description: grouping of end-user solution with fty-security-wallet-rest
@@ -104,6 +105,7 @@ Architecture: any
 Section: debug
 Priority: optional
 Depends:
+    libfty-security-wallet-rest1 (= ${binary:Version}),
     ${misc:Depends}
 Description: fty-security-wallet-rest debugging symbols
  This package contains the debugging symbols for fty-security-wallet-rest:
