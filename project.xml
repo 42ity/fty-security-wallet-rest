@@ -192,7 +192,7 @@
                     />
            </use>
         </use>
-    
+
         <use project = "fty-common-db" libname = "libfty_common_db" header = "fty_common_db.h"
             repository = "https://github.com/42ity/fty-common-db.git"
             release = "master"
@@ -299,7 +299,7 @@
                         repository = "https://github.com/42ity/log4cplus.git"
                         release = "1.1.2-FTY-master"
                         />
-            </use>
+                </use>
             </use>
 
             <use project = "fty-common-logging" libname = "libfty_common_logging" header = "fty_log.h"
