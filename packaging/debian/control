@@ -1,6 +1,9 @@
 #
 #    fty-security-wallet-rest - Security wallet REST API
 #
+#    NOTE: This file was customized after generation,
+#    take care to keep this during updates.
+#
 #    Copyright (C) 2014 - 2018 Eaton
 #
 #    This program is free software; you can redistribute it and/or modify
