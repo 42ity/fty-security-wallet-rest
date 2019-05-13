@@ -1,7 +1,7 @@
 /*  =========================================================================
     stub_security_wallet_rest - REST API for Security Wallet
 
-    Copyright (C) 2014 - 2018 Eaton
+    Copyright (C) 2018 - 2019 Eaton
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
