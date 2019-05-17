@@ -1,8 +1,9 @@
 # Custom targets, not managed via zproject
+AM_CXXFLAGS += -fvisibility=hidden
 
-ECPPC=ecppc
+ECPPC ?= ecppc
 ECPPFLAGS = --nolog
-ECPPFLAGS_CPP=
+ECPPFLAGS_CPP = -I$(top_builddir)/include -I$(top_srcdir)/include
 
 ECPPFILES= \
 	rest_document_DELETE.ecpp \

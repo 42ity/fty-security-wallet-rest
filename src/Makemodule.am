@@ -19,6 +19,7 @@ src_libfty_security_wallet_rest_la_SOURCES = \
     src/rest_document_GET.cc \
     src/rest_document_PUT.cc \
     src/rest_document_DELETE.cc \
+    src/stub_security_wallet_rest.cc \
     src/platform.h
 
 if ENABLE_DRAFTS

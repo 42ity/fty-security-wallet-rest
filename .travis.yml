@@ -2,6 +2,8 @@
 # This is a skeleton created by zproject.
 # You can add hand-written code here.
 
+# NOTE: This file was customized after generation, take care during updates!
+
 language:
 - cpp
 
@@ -67,15 +69,20 @@ pkg_deps_prereqs_distro: &pkg_deps_prereqs_distro
 # Prerequisite packages that may be built from source or used from
 # prebuilt packages of that source (usually not from an OS distro)
 pkg_deps_prereqs_source: &pkg_deps_prereqs_source
+    - cxxtools-dev
+    - log4cplus-dev
+    - libfty-common-logging-dev
     - libsodium-dev
     - libzmq3-dev
     - libczmq-dev
     - libmlm-dev
-    - cxxtools-dev
-    - log4cplus-dev
-    - libfty-common-logging-dev
     - libfty-common-dev
     - libfty-common-mlm-dev
+    - tntnet-dev
+    - tntdb-dev
+    - libfty-common-db-dev
+    - libfty-common-rest-dev
+    - libfty-security-wallet-dev
 
 # NOTE: Our forks are checked out and built without pkg dependencies in use
 pkg_deps_prereqs: &pkg_deps_prereqs
@@ -100,6 +107,8 @@ pkg_src_zeromq_ubuntu16: &pkg_src_zeromq_ubuntu16
 # Note: refer to ubuntu16 if you use dist==xenial
 # Also note that as of early 2017, either dist==trusty or services==docker
 # is needed for C++11 support; docker envs are usually faster to start up
+# CUSTOMIZATION NOTE: APT sources below add "ubuntu-toolchain-r-test" and
+# the package list adds "gcc-4.9" and "g++-4.9" for proper C++11 support.
 addons:
   apt:
     sources: 
@@ -191,10 +200,9 @@ deploy:
     # To encrypt your access token run: `travis encrypt -r user/repo`
     secure: <encrypted github access token>
   file_glob: true
-  file: ${FTY_SECURITY_WALLET_DEPLOYMENT}
+  file: ${FTY_SECURITY_WALLET_REST_DEPLOYMENT}
   skip_cleanup: true
   on:
     branch: master
     tags: true
     condition: $TRAVIS_OS_NAME =~ (linux) && $BUILD_TYPE =~ (default)
-

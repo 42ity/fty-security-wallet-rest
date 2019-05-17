@@ -1,5 +1,5 @@
 /*  =========================================================================
-    fty-security-wallet-rest - Security wallet REST API
+    stub_security_wallet_rest - REST API for Security Wallet
 
     Copyright (C) 2018 - 2019 Eaton
 
@@ -19,12 +19,30 @@
     =========================================================================
 */
 
-#ifndef FTY_SECURITY_WALLET_REST_H_H_INCLUDED
-#define FTY_SECURITY_WALLET_REST_H_H_INCLUDED
+#ifndef STUB_SECURITY_WALLET_REST_H_INCLUDED
+#define STUB_SECURITY_WALLET_REST_H_INCLUDED
 
-//  Include the project library file
-#include "fty_security_wallet_rest_library.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-//  Add your own public definitions here, if you need them
+//  @interface
+//  Create a new stub_security_wallet_rest
+FTY_SECURITY_WALLET_REST_EXPORT stub_security_wallet_rest_t *
+    stub_security_wallet_rest_new (void);
+
+//  Destroy the stub_security_wallet_rest
+FTY_SECURITY_WALLET_REST_EXPORT void
+    stub_security_wallet_rest_destroy (stub_security_wallet_rest_t **self_p);
+
+//  Self test of this class
+FTY_SECURITY_WALLET_REST_EXPORT void
+    stub_security_wallet_rest_test (bool verbose);
+
+//  @end
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

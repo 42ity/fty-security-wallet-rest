@@ -4,7 +4,7 @@
     Runs all selftests.
 
     -------------------------------------------------------------------------
-    Copyright (C) 2014 - 2018 Eaton
+    Copyright (C) 2018 - 2019 Eaton
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -39,6 +39,8 @@ typedef struct {
 
 static test_item_t
 all_tests [] = {
+// Tests for stable public classes:
+    { "stub_security_wallet_rest", stub_security_wallet_rest_test, true, true, NULL },
     {NULL, NULL, 0, 0, NULL}          //  Sentinel
 };
 

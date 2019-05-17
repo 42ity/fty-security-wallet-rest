@@ -11,6 +11,8 @@
 *.xml7
 
 # Ignore the source doc texts generated from program sources
+stub_security_wallet_rest.txt
+stub_security_wallet_rest.doc
 
 # Make sure to track the manually maintained project description
 !*.adoc
