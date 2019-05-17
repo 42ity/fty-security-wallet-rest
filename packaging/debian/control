@@ -92,10 +92,10 @@ Depends:
     ${misc:Depends},
     tntnet-runtime,
     malamute,
-    libfty-common,
-    libfty-common-mlm,
-    libfty-common-db,
-    libfty-common-rest,
+    libfty-common1,
+    libfty-common-mlm1,
+    libfty-common-db1,
+    libfty-common-rest1,
     ipc-data
 Recommends: msmtp
 Description: grouping of end-user solution with fty-security-wallet-rest
