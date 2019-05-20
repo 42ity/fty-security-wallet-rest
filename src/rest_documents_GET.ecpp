@@ -32,11 +32,13 @@
 #include <dirent.h>
 #include <unistd.h>
 
+#include <cxxtools/jsondeserializer.h>
 #include <tnt/httperror.h>
 
 #include "helpers.h"
 
-#include "fty_security_wallet_library.h"
+#include "secw_producer_accessor.h"
+#include "secw_exception.h"
 #include "fty_common_rest.h"
 
 </%pre>
@@ -57,6 +59,8 @@ UserInfo user;
 
   Path path(request.getPathInfo());
 
+  std::string usage = qparam.param ("usage");
+
   try
   {
     ProducerAccessor producerAccessor(CLIENT_ID, 1000, END_POINT);
@@ -65,7 +69,7 @@ UserInfo user;
     const std::string & portfolioName = path.getItem(URL_PREFIX_SIZE + 1);
 
     //try to recover the documents
-    std::vector<DocumentPtr> docs = producerAccessor.getListDocumentsWithoutPrivateData(portfolioName);
+    std::vector<DocumentPtr> docs = producerAccessor.getListDocumentsWithoutPrivateData(portfolioName, usage);
 
     // Send reply.
     reply.setContentType("application/json;charset=UTF-8");
