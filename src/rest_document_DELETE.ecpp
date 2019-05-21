@@ -32,8 +32,6 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#include <tnt/httperror.h>
-
 #include "helpers.h"
 
 #include "fty_security_wallet_library.h"
@@ -70,8 +68,8 @@ UserInfo user;
   }
   catch(const std::exception& e)
   {
-    std::cerr << e.what() << '\n';
-    throw tnt::HttpError(HTTP_INTERNAL_SERVER_ERROR);
+    std::string msg = TRANSLATE_ME ("Error while deleting document: %s", e.what ());
+    http_die ("internal-error", msg.c_str ());
   }
 
 </%cpp>
