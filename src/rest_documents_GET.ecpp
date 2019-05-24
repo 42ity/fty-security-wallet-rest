@@ -74,9 +74,21 @@ UserInfo user;
     reply.setContentType("application/json;charset=UTF-8");
     reply.out() << docs;
   }
+  catch(const SecwUnknownPortfolioException& e)
+  {
+    std::string received = TRANSLATE_ME ("unknown portfolio %s", e.getPortfolioName ().c_str ());
+    std::string expected = TRANSLATE_ME ("valid portfolio name");
+    http_die ("request-param-bad", "portfolio", received.c_str (), expected.c_str ());
+  }
+  catch(const SecwUnknownUsageIDException& e)
+  {
+    std::string received = TRANSLATE_ME ("unknown usage %s", e.getUsageId ().c_str ());
+    std::string expected = TRANSLATE_ME ("valid usage name");
+    http_die ("request-param-bad", "usage", received.c_str (), expected.c_str ());
+  }
   catch(const std::exception& e)
   {
-    std::string msg = TRANSLATE_ME ("Error while getting list of documents: %s", e.what ());
+    std::string msg = TRANSLATE_ME ("Error while getting list of documents: %s", JSONIFY(e.what ()).c_str ());
     http_die ("internal-error", msg.c_str ());
   }
 
