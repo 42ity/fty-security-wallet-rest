@@ -9,7 +9,7 @@
     <!-- Read document collection-->
     <mapping>
       <target>rest_documents_GET@libfty_security_wallet_rest</target>
-      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z-]+)/documents$</url>
+      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z-]+)/documents($|\?.+$)</url>
       <method>GET</method>
     </mapping>
 

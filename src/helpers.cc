@@ -27,7 +27,7 @@ namespace restapi
         : m_pathStr(pathStr)
     {
         std::stringstream stream;
-        stream << m_pathStr;
+        stream << m_pathStr.substr (0, m_pathStr.find ("?"));
         std::string item;
 
         while(std::getline(stream, item, '/'))
