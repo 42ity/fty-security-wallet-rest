@@ -32,8 +32,6 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#include <tnt/httperror.h>
-
 #include "helpers.h"
 
 #include "fty_security_wallet_library.h"
@@ -68,10 +66,19 @@ UserInfo user;
     //try to delete the document
     producerAccessor.deleteDocument(portfolioName, idDocument);
   }
+  catch(const SecwUnknownPortfolioException& e)
+  {
+    std::string received = TRANSLATE_ME ("unknown portfolio %s", e.getPortfolioName ().c_str ());
+    std::string expected = TRANSLATE_ME ("valid portfolio name");
+    http_die ("request-param-bad", "portfolio", received.c_str (), expected.c_str ());
+  }
+  catch(const SecwDocumentDoNotExistException& e)
+  {
+    http_die ("not-found", e.getDocumentId().c_str ());
+  }
   catch(const std::exception& e)
   {
-    std::cerr << e.what() << '\n';
-    throw tnt::HttpError(HTTP_INTERNAL_SERVER_ERROR);
+    std::string msg = TRANSLATE_ME ("Error while deleting document: %s", JSONIFY(e.what ()).c_str ());
+    http_die ("internal-error", msg.c_str ());
   }
-
 </%cpp>
