@@ -72,6 +72,8 @@ UserInfo user;
     //save document
     producerAccessor.updateDocument(portfolioName, doc);
 
+    cxxtools::SerializationInfo si;
+    reply.out() << si;
   }
   catch(const SecwUnknownPortfolioException& e)
   {

@@ -73,6 +73,12 @@ UserInfo user;
 
     // Send reply.
     reply.setHeader(tnt::httpheader::location, locationNewItem);
+    
+    cxxtools::SerializationInfo si;
+
+    si.addMember("id") << newId;
+
+    reply.out() << si;
   }
   catch(const SecwUnknownPortfolioException& e)
   {
