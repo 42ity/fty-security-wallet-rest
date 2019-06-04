@@ -76,7 +76,7 @@ UserInfo user;
     
     cxxtools::SerializationInfo si;
 
-    si.addMember("id") << newId;
+    si.addMember("id") <<= newId;
 
     reply.out() << si;
   }
