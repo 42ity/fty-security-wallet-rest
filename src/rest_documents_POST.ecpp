@@ -36,6 +36,7 @@
 
 #include <fty_security_wallet_library.h>
 #include "fty_common_rest.h"
+#include <cxxtools/jsonserializer.h>
 
 </%pre>
 <%request scope="global">
@@ -75,16 +76,21 @@ UserInfo user;
     reply.setHeader(tnt::httpheader::location, locationNewItem);
     
     cxxtools::SerializationInfo si;
-
     si.addMember("id") <<= newId;
 
-    reply.out() << si;
+    cxxtools::JsonSerializer serializer(reply.out());
+    serializer.serialize(si);
   }
   catch(const SecwUnknownPortfolioException& e)
   {
     std::string received = TRANSLATE_ME ("unknown portfolio %s", e.getPortfolioName ().c_str ());
     std::string expected = TRANSLATE_ME ("valid portfolio name");
     http_die ("request-param-bad", "portfolio", received.c_str (), expected.c_str ());
+  }
+  catch(const SecwNameAlreadyExistsException& e)
+  {
+    std::string msg = TRANSLATE_ME ("Name of credential '%s' already exist", e.getName().c_str ());
+    http_die ("bad-request-document", msg.c_str ());
   }
   catch(const SecwUnknownDocumentTypeException& e)
   {

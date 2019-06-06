@@ -65,6 +65,8 @@ UserInfo user;
 
     //try to delete the document
     producerAccessor.deleteDocument(portfolioName, idDocument);
+
+    reply.out() << "{}";
   }
   catch(const SecwUnknownPortfolioException& e)
   {
