@@ -72,12 +72,18 @@ UserInfo user;
     //save document
     producerAccessor.updateDocument(portfolioName, doc);
 
+    reply.out() << "{}";
   }
   catch(const SecwUnknownPortfolioException& e)
   {
     std::string received = TRANSLATE_ME ("unknown portfolio %s", e.getPortfolioName ().c_str ());
     std::string expected = TRANSLATE_ME ("valid portfolio name");
     http_die ("request-param-bad", "portfolio", received.c_str (), expected.c_str ());
+  }
+  catch(const SecwNameAlreadyExistsException& e)
+  {
+    std::string msg = TRANSLATE_ME ("Name of credential '%s' already exist", e.getName().c_str ());
+    http_die ("bad-request-document", msg.c_str ());
   }
   catch(const SecwUnknownDocumentTypeException& e)
   {
