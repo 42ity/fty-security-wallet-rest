@@ -40,6 +40,10 @@
 #include "secw_exception.h"
 #include "fty_common_rest.h"
 
+#include "cam_accessor.h"
+
+#include <cxxtools/jsonserializer.h>
+
 </%pre>
 <%request scope="global">
 UserInfo user;
@@ -70,9 +74,54 @@ UserInfo user;
     //try to recover the documents
     std::vector<DocumentPtr> docs = producerAccessor.getListDocumentsWithoutPrivateData(portfolioName, usage);
 
+    cxxtools::SerializationInfo rootSi;
+
+    //get the couter of usage for the document (if possible)
+    try
+    {
+      cam::Accessor accessor( CLIENT_ID_FOR_MAPPING, 1000, END_POINT);
+      const std::map<cam::CredentialId, uint32_t> counters = accessor.getAllCredentialCounter();
+
+      for(const DocumentPtr & doc : docs)
+      {
+        cxxtools::SerializationInfo si;
+
+        si <<= doc;
+
+        if(counters.count(doc->getId()) == 0)
+        {
+          si.addMember("counter") <<= 0;
+        }
+        else
+        {
+          si.addMember("counter") <<= counters.at(doc->getId());
+        }
+
+        //add in the list
+        rootSi.addMember("") <<= si;
+      }
+    }
+    catch(...)
+    {
+      for(const DocumentPtr & doc : docs)
+      {
+        cxxtools::SerializationInfo si;
+
+        si <<= doc;
+
+        si.addMember("counter") <<= nullptr;
+
+        //add in the list
+        rootSi.addMember("") <<= si;
+      }
+    }
+
+    rootSi.setCategory(cxxtools::SerializationInfo::Array);
+
     // Send reply.
     reply.setContentType("application/json;charset=UTF-8");
-    reply.out() << docs;
+    cxxtools::JsonSerializer serializer(reply.out());
+    serializer.serialize(rootSi);
   }
   catch(const SecwUnknownPortfolioException& e)
   {
