@@ -53,6 +53,12 @@ UserInfo user;
 
   CHECK_USER_PERMISSIONS_OR_DIE(PERMISSIONS);
 
+  //check re-auth
+  if( !user.reauth())
+  {
+    http_die ("internal-error", "Wrong confirmation password");
+  }
+
   Path path(request.getPathInfo());
 
   try
