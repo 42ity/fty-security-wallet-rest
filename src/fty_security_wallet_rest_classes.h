@@ -32,8 +32,6 @@
 //  External API
 #include "../include/fty-security-wallet-rest.h"
 
-//  Extra headers
-
 //  Opaque class structures to allow forward references
 #ifndef HELPERS_T_DEFINED
 typedef struct _helpers_t helpers_t;
@@ -59,6 +57,8 @@ typedef struct _rest_document_put_t rest_document_put_t;
 typedef struct _rest_document_delete_t rest_document_delete_t;
 #define REST_DOCUMENT_DELETE_T_DEFINED
 #endif
+
+//  Extra headers
 
 //  Internal API
 // common definitions and idioms from czmq_prelude.h, which are used in generated code

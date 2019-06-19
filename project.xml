@@ -13,6 +13,8 @@
     <target name = "travis" >
         <!-- option name = "clangformat_implem" value = "autotools" / -->
         <option name = "use_cmake" value = "0" />
+         <option name = "dist" value = "trusty" />
+        <option name = "shadow_gcc" value = "2" />
         <!-- option name = "clangformat_require_good" value = "1" / -->
         <option name = "clangformat_allow_failures" value = "1" />
         <option name = "use_pkg_deps_prereqs_source" value = "0" />
@@ -34,7 +36,7 @@
         <option name = "use_checkout_explicit" value = "1" />
     </target>
 
-    <classfilename keep-tree = "true" use-cxx = "true" pretty-print = "no" source-extension = "cc" />
+    <classfilename keep-tree = "true" use-cxx = "true" use-cxx-gcc-4-9 = "true" pretty-print = "no" source-extension = "cc" />
     <include filename = "license.xml" />
 
     <version major = "1" minor = "0" patch = "0" />
