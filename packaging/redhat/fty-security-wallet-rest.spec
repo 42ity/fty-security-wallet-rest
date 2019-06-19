@@ -85,11 +85,9 @@ This package contains shared library for fty-security-wallet-rest: security wall
 %post -n libfty_security_wallet_rest1 -p /sbin/ldconfig
 %postun -n libfty_security_wallet_rest1 -p /sbin/ldconfig
 
-# Note: the .so file is delivered as part of main package for tntnet to find it
 %files -n libfty_security_wallet_rest1
 %defattr(-,root,root)
 %{_libdir}/libfty_security_wallet_rest.so.*
-%{_libdir}/libfty_security_wallet_rest.so
 
 %package devel
 Summary:        security wallet rest api
@@ -116,11 +114,10 @@ Requires:       fty-security-wallet-devel
 security wallet rest api development tools
 This package contains development files for fty-security-wallet-rest: security wallet rest api
 
-# Note: the .so file is delivered as part of main package for tntnet to find it
 %files devel
 %defattr(-,root,root)
 %{_includedir}/*
-###%{_libdir}/libfty_security_wallet_rest.so
+%{_libdir}/libfty_security_wallet_rest.so
 %{_libdir}/pkgconfig/libfty_security_wallet_rest.pc
 %{_mandir}/man3/*
 %{_mandir}/man7/*
