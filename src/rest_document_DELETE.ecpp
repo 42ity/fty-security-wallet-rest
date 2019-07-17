@@ -37,6 +37,9 @@
 #include "fty_security_wallet_library.h"
 #include "fty_common_rest.h"
 
+#include "cam_accessor.h"
+#include "cam_exception.h"
+
 </%pre>
 <%request scope="global">
 UserInfo user;
@@ -53,6 +56,13 @@ UserInfo user;
 
   CHECK_USER_PERMISSIONS_OR_DIE(PERMISSIONS);
 
+  //check re-auth
+  if( !user.reauth())
+  {
+    http_die ("internal-error", "Wrong confirmation password");
+  }
+
+
   Path path(request.getPathInfo());
 
   try
@@ -62,6 +72,18 @@ UserInfo user;
     //extract data from the path: <URL_PREFIX>/portfolios/<portfolio_name>/documents/<id_document>
     const std::string & portfolioName = path.getItem(URL_PREFIX_SIZE + 1);
     const std::string & idDocument = path.getItem(URL_PREFIX_SIZE + 3);
+
+    //ensure that the document is not used before to delete it
+    cam::Accessor accessor( CLIENT_ID, 1000, END_POINT);
+
+    uint32_t used = accessor.countCredentialMappingsForCredential(idDocument);
+
+    //document is used in the system
+    if(used > 0)
+    {
+      std::string msg = TRANSLATE_ME ("Impossible to delete the document: The document is used %i times", used);
+      http_die ("internal-error", msg.c_str ());
+    }
 
     //try to delete the document
     producerAccessor.deleteDocument(portfolioName, idDocument);
