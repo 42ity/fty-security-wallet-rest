@@ -59,7 +59,7 @@ UserInfo user;
   //check re-auth
   if( !user.reauth())
   {
-    http_die ("internal-error", "Wrong confirmation password");
+    http_die ("not-authorized", "Wrong confirmation password");
   }
 
 
