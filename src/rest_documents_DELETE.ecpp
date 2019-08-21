@@ -21,7 +21,7 @@
  * \file rest_documents_POST.ecpp
  * \author Clement Perrette <ClementPerrette@eaton.com>
  * \brief Implementation of rest handler for security wallet
- *        DELETE a document
+ *        DELETE a list of documents
  */
  #><%pre>
 #include <algorithm>
@@ -64,29 +64,48 @@ UserInfo user;
 
 
   Path path(request.getPathInfo());
+  
+  std::string idListStr = qparam.param ("ids");
+  std::vector<std::string> idList;
+  
+  std::string delimiter = ",";
+
+  size_t pos = 0;
+  std::string token;
+  while ((pos = idListStr.find(delimiter)) != std::string::npos)
+  {
+    token = idListStr.substr(0, pos);
+    idList.push_back(token);
+    idListStr.erase(0, pos + delimiter.length());
+  }
+
+  if(!idListStr.empty())
+  {
+      idList.push_back(idListStr);
+  }
 
   try
   {
-    ProducerAccessor producerAccessor(CLIENT_ID, 1000, END_POINT);
-
-    //extract data from the path: <URL_PREFIX>/portfolios/<portfolio_name>/documents/<id_document>
     const std::string & portfolioName = path.getItem(URL_PREFIX_SIZE + 1);
-    const std::string & idDocument = path.getItem(URL_PREFIX_SIZE + 3);
+    ProducerAccessor producerAccessor(CLIENT_ID, 1000, END_POINT);
 
     //ensure that the document is not used before to delete it
     cam::Accessor accessor( CLIENT_ID, 1000, END_POINT);
-
-    uint32_t used = accessor.countCredentialMappingsForCredential(idDocument);
-
-    //document is used in the system
-    if(used > 0)
+    
+    for(const std::string & idDocument : idList)
     {
-      std::string msg = TRANSLATE_ME ("Impossible to delete the document: The document is used %i times", used);
-      http_die ("internal-error", msg.c_str ());
-    }
+        uint32_t used = accessor.countCredentialMappingsForCredential(idDocument);
 
-    //try to delete the document
-    producerAccessor.deleteDocument(portfolioName, idDocument);
+        //document is used in the system
+        if(used > 0)
+        {
+            std::string msg = TRANSLATE_ME ("Impossible to delete the document: The document is used %i times", used);
+            http_die ("internal-error", msg.c_str ());
+        }
+
+        //try to delete the document
+        producerAccessor.deleteDocument(portfolioName, idDocument);
+    }
 
     reply.out() << "{}";
   }
