@@ -76,7 +76,7 @@ UserInfo user;
 
     cxxtools::SerializationInfo rootSi;
 
-    //get the couter of usage for the document (if possible)
+    //get the counter of usage for the document (if possible)
     try
     {
       cam::Accessor accessor( CLIENT_ID_FOR_MAPPING, 1000, END_POINT);
