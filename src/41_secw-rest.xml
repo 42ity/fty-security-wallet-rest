@@ -12,6 +12,13 @@
       <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z-]+)/documents($|\?.+$)</url>
       <method>GET</method>
     </mapping>
+    
+    <!-- Delete a list of documents from the collection-->
+    <mapping>
+      <target>rest_documents_DELETE@libfty_security_wallet_rest</target>
+      <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z-]+)/documents($|\?.+$)</url>
+      <method>DELETE</method>
+    </mapping>
 
  <!-- Single document -->
     <!-- Read document -->

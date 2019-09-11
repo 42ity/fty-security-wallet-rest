@@ -75,6 +75,7 @@ EXTRA_DIST += \
     src/helpers.h \
     src/rest_documents_POST.h \
     src/rest_documents_GET.h \
+    src/rest_documents_DELETE.h \
     src/rest_document_GET.h \
     src/rest_document_PUT.h \
     src/rest_document_DELETE.h \
