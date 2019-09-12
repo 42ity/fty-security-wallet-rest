@@ -67,7 +67,8 @@ UserInfo user;
 
   try
   {
-    ProducerAccessor producerAccessor(CLIENT_ID, 1000, END_POINT);
+    fty::SocketSyncClient secwSyncClient(std::string(SECW_SOCKET_PATH));
+    ProducerAccessor producerAccessor(secwSyncClient);
 
     //extract data from the path: <URL_PREFIX>/portfolios/<portfolio_name>/documents/<id_document>
     const std::string & portfolioName = path.getItem(URL_PREFIX_SIZE + 1);
