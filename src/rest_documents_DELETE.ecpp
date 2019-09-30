@@ -1,0 +1,127 @@
+<#
+ #
+ # Copyright (C) 2019 Eaton
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+ # (at your option) any later version.
+ #
+ # This program is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License along
+ # with this program; if not, write to the Free Software Foundation, Inc.,
+ # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ #
+ #><#
+/*!
+ * \file rest_documents_POST.ecpp
+ * \author Clement Perrette <ClementPerrette@eaton.com>
+ * \brief Implementation of rest handler for security wallet
+ *        DELETE a list of documents
+ */
+ #><%pre>
+#include <algorithm>
+#include <string>
+#include <fstream>
+
+#include <sys/types.h>
+#include <dirent.h>
+#include <unistd.h>
+
+#include "helpers.h"
+
+#include "fty_security_wallet_library.h"
+#include "fty_common_rest.h"
+
+#include "cam_accessor.h"
+#include "cam_exception.h"
+
+</%pre>
+<%request scope="global">
+UserInfo user;
+</%request>
+<%cpp>
+
+  using namespace secw;
+  using namespace restapi;
+
+  //check if we can execute
+  static const std::map <BiosProfile, std::string> PERMISSIONS = {
+          {BiosProfile::Admin, "D"}
+  };
+
+  CHECK_USER_PERMISSIONS_OR_DIE(PERMISSIONS);
+
+  //check re-auth
+  if( !user.reauth())
+  {
+    http_die ("internal-error", "Wrong confirmation password");
+  }
+
+
+  Path path(request.getPathInfo());
+  
+  std::string idListStr = qparam.param ("ids");
+  std::vector<std::string> idList;
+  
+  std::string delimiter = ",";
+
+  size_t pos = 0;
+  std::string token;
+  while ((pos = idListStr.find(delimiter)) != std::string::npos)
+  {
+    token = idListStr.substr(0, pos);
+    idList.push_back(token);
+    idListStr.erase(0, pos + delimiter.length());
+  }
+
+  if(!idListStr.empty())
+  {
+      idList.push_back(idListStr);
+  }
+
+  try
+  {
+    const std::string & portfolioName = path.getItem(URL_PREFIX_SIZE + 1);
+    ProducerAccessor producerAccessor(CLIENT_ID, 1000, END_POINT);
+
+    //ensure that the document is not used before to delete it
+    cam::Accessor accessor( CLIENT_ID, 1000, END_POINT);
+    
+    for(const std::string & idDocument : idList)
+    {
+        uint32_t used = accessor.countCredentialMappingsForCredential(idDocument);
+
+        //document is used in the system
+        if(used > 0)
+        {
+            std::string msg = TRANSLATE_ME ("Impossible to delete the document: The document is used %i times", used);
+            http_die ("internal-error", msg.c_str ());
+        }
+
+        //try to delete the document
+        producerAccessor.deleteDocument(portfolioName, idDocument);
+    }
+
+    reply.out() << "{}";
+  }
+  catch(const SecwUnknownPortfolioException& e)
+  {
+    std::string received = TRANSLATE_ME ("unknown portfolio %s", e.getPortfolioName ().c_str ());
+    std::string expected = TRANSLATE_ME ("valid portfolio name");
+    http_die ("request-param-bad", "portfolio", received.c_str (), expected.c_str ());
+  }
+  catch(const SecwDocumentDoNotExistException& e)
+  {
+    http_die ("not-found", e.getDocumentId().c_str ());
+  }
+  catch(const std::exception& e)
+  {
+    std::string msg = TRANSLATE_ME ("Error while deleting document: %s", JSONIFY(e.what ()).c_str ());
+    http_die ("internal-error", msg.c_str ());
+  }
+</%cpp>

@@ -45,6 +45,10 @@ typedef struct _rest_documents_post_t rest_documents_post_t;
 typedef struct _rest_documents_get_t rest_documents_get_t;
 #define REST_DOCUMENTS_GET_T_DEFINED
 #endif
+#ifndef REST_DOCUMENTS_DELETE_T_DEFINED
+typedef struct _rest_documents_delete_t rest_documents_delete_t;
+#define REST_DOCUMENTS_DELETE_T_DEFINED
+#endif
 #ifndef REST_DOCUMENT_GET_T_DEFINED
 typedef struct _rest_document_get_t rest_document_get_t;
 #define REST_DOCUMENT_GET_T_DEFINED
@@ -102,6 +106,7 @@ safe_malloc (size_t size, const char *file, unsigned line)
 #include "helpers.h"
 #include "rest_documents_POST.h"
 #include "rest_documents_GET.h"
+#include "rest_documents_DELETE.h"
 #include "rest_document_GET.h"
 #include "rest_document_PUT.h"
 #include "rest_document_DELETE.h"

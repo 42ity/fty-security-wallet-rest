@@ -16,6 +16,7 @@ src_libfty_security_wallet_rest_la_SOURCES = \
     src/helpers.cc \
     src/rest_documents_POST.cc \
     src/rest_documents_GET.cc \
+    src/rest_documents_DELETE.cc \
     src/rest_document_GET.cc \
     src/rest_document_PUT.cc \
     src/rest_document_DELETE.cc \
