@@ -136,6 +136,7 @@ src/rest_*.cc
 *~
 
 # Remove CMake
+CMake*
 CTestTestfile.cmake
 cmake_install.cmake
 builds/cmake/
