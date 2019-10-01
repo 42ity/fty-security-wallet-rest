@@ -87,7 +87,7 @@ UserInfo user;
   try
   {
     const std::string & portfolioName = path.getItem(URL_PREFIX_SIZE + 1);
-    fty::SocketSyncClient secwSyncClient(std::string(SECW_SOCKET_PATH));
+    fty::SocketSyncClient secwSyncClient(SECW_SOCKET_PATH);
     ProducerAccessor producerAccessor(secwSyncClient);
 
     //ensure that the document is not used before to delete it

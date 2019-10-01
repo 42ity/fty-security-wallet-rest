@@ -25,10 +25,13 @@
 #include "fty_security_wallet_library.h"
 #include "fty_common_socket_sync_client.h"
 
+#include "secw_producer_accessor.h"
+#include "secw_exception.h"
+
 namespace restapi
 {
     static constexpr char END_POINT[] = "ipc://@/malamute";
-    static const char SECW_SOCKET_PATH[] = "/run/fty-security-wallet/secw.socket";
+    static const std::string SECW_SOCKET_PATH = "/run/fty-security-wallet/secw.socket";
     static constexpr char CLIENT_ID_FOR_MAPPING[] = "fty-security-wallet-rest-mapping";
 
     //URL_PREFIX = /api/v1/admin/security-wallet/
