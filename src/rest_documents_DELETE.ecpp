@@ -91,7 +91,7 @@ UserInfo user;
     ProducerAccessor producerAccessor(secwSyncClient);
 
     //ensure that the document is not used before to delete it
-    cam::Accessor accessor( CLIENT_ID, 1000, END_POINT);
+    cam::Accessor accessor( CLIENT_ID_FOR_MAPPING, 1000, END_POINT);
     
     for(const std::string & idDocument : idList)
     {

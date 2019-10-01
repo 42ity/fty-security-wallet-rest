@@ -76,7 +76,7 @@ UserInfo user;
     const std::string & idDocument = path.getItem(URL_PREFIX_SIZE + 3);
 
     //ensure that the document is not used before to delete it
-    cam::Accessor accessor( CLIENT_ID, 1000, END_POINT);
+    cam::Accessor accessor( CLIENT_ID_FOR_MAPPING, 1000, END_POINT);
 
     uint32_t used = accessor.countCredentialMappingsForCredential(idDocument);
 
