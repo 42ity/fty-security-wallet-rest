@@ -83,6 +83,7 @@ UserInfo user;
     //document is used in the system
     if(used > 0)
     {
+      log_error_audit ("Request DELETE security-wallet delete document FAILED");
       std::string msg = TRANSLATE_ME ("Impossible to delete the document: The document is used %i times", used);
       http_die ("internal-error", msg.c_str ());
     }
@@ -91,19 +92,24 @@ UserInfo user;
     producerAccessor.deleteDocument(portfolioName, idDocument);
 
     reply.out() << "{}";
+
+    log_info_audit ("Request DELETE security-wallet delete document SUCCESS");
   }
   catch(const SecwUnknownPortfolioException& e)
   {
+    log_error_audit ("Request DELETE security-wallet delete document FAILED");
     std::string received = TRANSLATE_ME ("unknown portfolio %s", e.getPortfolioName ().c_str ());
     std::string expected = TRANSLATE_ME ("valid portfolio name");
     http_die ("request-param-bad", "portfolio", received.c_str (), expected.c_str ());
   }
   catch(const SecwDocumentDoNotExistException& e)
   {
+    log_error_audit ("Request DELETE security-wallet delete document FAILED");
     http_die ("not-found", e.getDocumentId().c_str ());
   }
   catch(const std::exception& e)
   {
+    log_error_audit ("Request DELETE security-wallet delete document FAILED");
     std::string msg = TRANSLATE_ME ("Error while deleting document: %s", JSONIFY(e.what ()).c_str ());
     http_die ("internal-error", msg.c_str ());
   }
