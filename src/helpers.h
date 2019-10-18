@@ -19,8 +19,8 @@
     =========================================================================
 */
 
-#ifndef RESTAPI_HELPERS_H_INCLUDED
-#define RESTAPI_HELPERS_H_INCLUDED
+#ifndef SECW_RESTAPI_HELPERS_H_INCLUDED
+#define SECW_RESTAPI_HELPERS_H_INCLUDED
 
 #include "fty_security_wallet_library.h"
 #include "fty_common_socket_sync_client.h"
@@ -50,7 +50,7 @@ namespace restapi
         std::string m_pathStr;
         std::vector<std::string> m_items;
     };
-   
+
 } //namepace restapi
 
 #endif
