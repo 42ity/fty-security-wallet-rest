@@ -74,7 +74,7 @@ EXTRA_DIST += \
 endif
 
 EXTRA_DIST += \
-    src/helpers.h \
+    src/helpers_security_wallet_rest.h \
     src/rest_documents_POST.h \
     src/rest_documents_GET.h \
     src/rest_documents_DELETE.h \

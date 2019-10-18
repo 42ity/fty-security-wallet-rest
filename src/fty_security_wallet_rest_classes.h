@@ -103,7 +103,7 @@ safe_malloc (size_t size, const char *file, unsigned line)
 #endif // __CZMQ_PRELUDE_H_INCLUDED__
 
 
-#include "helpers.h"
+#include "helpers_security_wallet_rest.h"
 #include "rest_documents_POST.h"
 #include "rest_documents_GET.h"
 #include "rest_documents_DELETE.h"
