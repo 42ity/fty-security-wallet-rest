@@ -15,7 +15,7 @@ Project fty-security-wallet-rest aims to ... (short marketing pitch)
 It delivers several programs with their respective man pages:
 
 and public classes in a shared library:
- helpers.3
+ helpers_security_wallet_rest.3
 
 Generally you can compile and link against it like this:
 ----

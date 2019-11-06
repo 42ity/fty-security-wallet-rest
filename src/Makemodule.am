@@ -13,7 +13,7 @@ lib_LTLIBRARIES += src/libfty_security_wallet_rest.la
 pkgconfig_DATA = src/libfty_security_wallet_rest.pc
 
 src_libfty_security_wallet_rest_la_SOURCES = \
-    src/helpers.cc \
+    src/helpers_security_wallet_rest.cc \
     src/rest_documents_POST.cc \
     src/rest_documents_GET.cc \
     src/rest_documents_DELETE.cc \

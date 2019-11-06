@@ -33,9 +33,9 @@
 #include "../include/fty-security-wallet-rest.h"
 
 //  Opaque class structures to allow forward references
-#ifndef HELPERS_T_DEFINED
-typedef struct _helpers_t helpers_t;
-#define HELPERS_T_DEFINED
+#ifndef HELPERS_SECURITY_WALLET_REST_T_DEFINED
+typedef struct _helpers_security_wallet_rest_t helpers_security_wallet_rest_t;
+#define HELPERS_SECURITY_WALLET_REST_T_DEFINED
 #endif
 #ifndef REST_DOCUMENTS_POST_T_DEFINED
 typedef struct _rest_documents_post_t rest_documents_post_t;
@@ -103,7 +103,7 @@ safe_malloc (size_t size, const char *file, unsigned line)
 #endif // __CZMQ_PRELUDE_H_INCLUDED__
 
 
-#include "helpers.h"
+#include "helpers_security_wallet_rest.h"
 #include "rest_documents_POST.h"
 #include "rest_documents_GET.h"
 #include "rest_documents_DELETE.h"

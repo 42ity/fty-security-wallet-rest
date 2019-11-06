@@ -34,7 +34,7 @@
 
 #include <cxxtools/jsondeserializer.h>
 
-#include "helpers.h"
+#include <src/helpers_security_wallet_rest.h>
 
 #include "secw_producer_accessor.h"
 #include "secw_exception.h"
