@@ -33,9 +33,9 @@
 #include "../include/fty-security-wallet-rest.h"
 
 //  Opaque class structures to allow forward references
-#ifndef HELPERS_T_DEFINED
-typedef struct _helpers_t helpers_t;
-#define HELPERS_T_DEFINED
+#ifndef FTY_SECURITY_WALLET_REST_HELPERS_T_DEFINED
+typedef struct _fty_security_wallet_rest_helpers_t fty_security_wallet_rest_helpers_t;
+#define FTY_SECURITY_WALLET_REST_HELPERS_T_DEFINED
 #endif
 #ifndef REST_DOCUMENTS_POST_T_DEFINED
 typedef struct _rest_documents_post_t rest_documents_post_t;
