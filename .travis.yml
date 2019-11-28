@@ -13,19 +13,21 @@ cache:
 os:
 - linux
 
+#Sudo is need because we need to be able to install package for the depencies using apt-get
+sudo: required
+
+# NOTE: Here we need this for .travis.fix* script(s) below.
+# The "sudo" in fixsasl script may require this enabled, depending on
+# distro and package versions.
+
 # The default distro for env:/matrix:/* and unspecified-dist matrix:/* tests;
 # for the latter see also addons/apt/sources with the package repos in use.
 # See https://docs.travis-ci.com/user/reference/overview/ for up-to-date
 # allowed values of "dist" supported by the Travis CI service.
 
-# NOTE: Here we need this for .travis.fix* script(s) below.
-# The "sudo" in fixsasl script may require this enabled, depending on
-# distro and package versions.
-#sudo: false
-sudo: required
 
 dist:
-- trusty
+- xenial
 
 #services:
 #- docker
@@ -70,17 +72,8 @@ pkg_deps_prereqs_distro: &pkg_deps_prereqs_distro
 # prebuilt packages of that source (usually not from an OS distro)
 pkg_deps_prereqs_source: &pkg_deps_prereqs_source
     - cxxtools-dev
-    - log4cplus-dev
     - libfty-common-logging-dev
-    - libsodium-dev
-    - libzmq3-dev
-    - libczmq-dev
-    - libmlm-dev
-    - libfty-common-dev
     - libfty-common-mlm-dev
-    - tntnet-dev
-    - tntdb-dev
-    - libfty-common-db-dev
     - libfty-common-rest-dev
     - libfty-common-socket-dev
     - libfty-security-wallet-dev
@@ -123,7 +116,6 @@ pkg_deps_common: &pkg_deps_common
 addons:
   apt:
     sources:
-    - *pkg_src_zeromq_ubuntu14
     - ubuntu-toolchain-r-test
     packages:
     - *pkg_deps_common
@@ -134,11 +126,9 @@ matrix:
   include:
   - env: BUILD_TYPE=default-with-docs
     os: linux
-    dist: trusty
     addons:
       apt:
         sources:
-        - *pkg_src_zeromq_ubuntu14
         - ubuntu-toolchain-r-test
         packages:
         - *pkg_deps_common
@@ -147,11 +137,9 @@ matrix:
         - g++-4.9
   - env: BUILD_TYPE=valgrind
     os: linux
-    dist: trusty
     addons:
       apt:
         sources:
-        - *pkg_src_zeromq_ubuntu14
         - ubuntu-toolchain-r-test
         packages:
         - valgrind
@@ -160,11 +148,9 @@ matrix:
         - g++-4.9
   - env: BUILD_TYPE=default ADDRESS_SANITIZER=enabled
     os: linux
-    dist: trusty
     addons:
       apt:
         sources:
-        - *pkg_src_zeromq_ubuntu14
         - ubuntu-toolchain-r-test
         packages:
         - *pkg_deps_common
@@ -173,36 +159,30 @@ matrix:
 # Shadow-compilation setups below inspired by https://docs.travis-ci.com/user/languages/cpp/
   - env: BUILD_TYPE=default-Werror MATRIX_EVAL="CC=gcc-5 && CXX=g++-5 && export CC CXX"
     os: linux
-    dist: trusty
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - *pkg_src_zeromq_ubuntu14
         packages:
         - *pkg_deps_common
         - g++-5
         - gcc-5
   - env: BUILD_TYPE=default-Werror MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && export CC CXX"
     os: linux
-    dist: trusty
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - *pkg_src_zeromq_ubuntu14
         packages:
         - *pkg_deps_common
         - g++-6
         - gcc-6
   - env: BUILD_TYPE=default-Werror MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && export CC CXX"
     os: linux
-    dist: trusty
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - *pkg_src_zeromq_ubuntu14
         packages:
         - *pkg_deps_common
         - g++-7
