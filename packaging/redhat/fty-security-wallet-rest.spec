@@ -57,6 +57,7 @@ BuildRequires:  gcc-c++ >= 4.9.0
 BuildRequires:  libsodium-devel
 BuildRequires:  zeromq-devel
 BuildRequires:  czmq-devel >= 3.0.2
+BuildRequires:  fty-common-devel
 BuildRequires:  cxxtools-devel
 BuildRequires:  fty-common-logging-devel
 BuildRequires:  fty-common-mlm-devel
@@ -91,6 +92,7 @@ Requires:       libfty_security_wallet_rest1 = %{version}
 Requires:       libsodium-devel
 Requires:       zeromq-devel
 Requires:       czmq-devel >= 3.0.2
+Requires:       fty-common-devel
 Requires:       cxxtools-devel
 Requires:       fty-common-logging-devel
 Requires:       fty-common-mlm-devel
