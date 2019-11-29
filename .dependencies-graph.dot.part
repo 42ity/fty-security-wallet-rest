@@ -1,3 +1,6 @@
+   fty-security-wallet-rest -> libsodium;
+   fty-security-wallet-rest -> libzmq;
+   fty-security-wallet-rest -> czmq;
    fty-security-wallet-rest -> cxxtools;
    fty-security-wallet-rest -> fty-common-logging;
    fty-security-wallet-rest -> fty-common-mlm;

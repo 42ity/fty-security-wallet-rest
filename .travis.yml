@@ -24,8 +24,6 @@ sudo: required
 # for the latter see also addons/apt/sources with the package repos in use.
 # See https://docs.travis-ci.com/user/reference/overview/ for up-to-date
 # allowed values of "dist" supported by the Travis CI service.
-
-
 dist:
 - xenial
 
@@ -71,6 +69,9 @@ pkg_deps_prereqs_distro: &pkg_deps_prereqs_distro
 # Prerequisite packages that may be built from source or used from
 # prebuilt packages of that source (usually not from an OS distro)
 pkg_deps_prereqs_source: &pkg_deps_prereqs_source
+    - libsodium-dev
+    - libzmq3-dev
+    - libczmq-dev
     - cxxtools-dev
     - libfty-common-logging-dev
     - libfty-common-mlm-dev
