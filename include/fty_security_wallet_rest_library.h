@@ -38,6 +38,7 @@
 #include <fty_common_rest.h>
 #include <fty_common_socket.h>
 #include <fty_security_wallet.h>
+#include <tntdb.h>
 
 //  FTY_SECURITY_WALLET_REST version macros for compile-time API detection
 #define FTY_SECURITY_WALLET_REST_VERSION_MAJOR 1

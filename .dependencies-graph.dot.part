@@ -8,3 +8,4 @@
    fty-security-wallet-rest -> fty-common-rest;
    fty-security-wallet-rest -> fty-common-socket;
    fty-security-wallet-rest -> fty-security-wallet;
+   fty-security-wallet-rest -> tntdb;

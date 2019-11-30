@@ -64,6 +64,7 @@ BuildRequires:  fty-common-mlm-devel
 BuildRequires:  fty-common-rest-devel
 BuildRequires:  fty-common-socket-devel
 BuildRequires:  fty-security-wallet-devel
+BuildRequires:  tntdb-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -99,6 +100,7 @@ Requires:       fty-common-mlm-devel
 Requires:       fty-common-rest-devel
 Requires:       fty-common-socket-devel
 Requires:       fty-security-wallet-devel
+Requires:       tntdb-devel
 
 %description devel
 security wallet rest api development tools
