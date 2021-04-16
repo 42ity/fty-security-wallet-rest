@@ -16,6 +16,7 @@ typedef struct {
 
 static test_item_t
 all_tests [] = {
+    { "helpers_security_wallet_rest", helpers_security_wallet_rest_test },
     {NULL, NULL}          //  Sentinel
 };
 
