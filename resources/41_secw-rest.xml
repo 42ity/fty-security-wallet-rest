@@ -13,7 +13,7 @@
       <method>GET</method>
     </mapping>
 
-    <!-- Delete a list of documents from the collection -- removed
+    <!-- Delete a list of documents from the collection ### removed
     <mapping>
       <target>rest_documents_DELETE@libfty_security_wallet_rest</target>
       <url>^/api/v1/admin/security-wallet/portfolios/([a-zA-Z-]+)/documents($|\?.+$)</url>

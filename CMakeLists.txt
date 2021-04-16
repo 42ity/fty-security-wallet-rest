@@ -18,17 +18,14 @@ etn_target(shared ${PROJECT_NAME}
     include
   USES
     fty-cmake-rest
-    czmq
     cxxtools
     tntdb
     tntnet
     fty_common
     fty_common_logging
-    fty_common_mlm
     fty_common_rest
     fty_common_socket
     fty_security_wallet
-#    fty_common_dto
 )
 
 # Get the ecpp

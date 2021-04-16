@@ -20,85 +20,30 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-Source:         fty-security-wallet-rest
-Section:        net
-Priority:       optional
-Maintainer:     fty-security-wallet-rest Developers <eatonipcopensource@eaton.com>
+Source: fty-security-wallet-rest
+Section: net
+Priority: optional
+Maintainer: fty-security-wallet-rest Developers <eatonipcopensource@eaton.com>
 Standards-Version: 4.0.1.0
 Build-Depends: debhelper (>= 9),
+    cmake (>=3.0),
+    fty-cmake-dev,
+    fty-cmake-rest-dev,
     pkg-config,
-    libsodium-dev,
-    libzmq3-dev,
-    libczmq-dev (>= 3.0.2),
-    libfty-common-dev,
     libcxxtools-dev,
+    libtntnet-dev,
+    libtntdb-dev,
+    libfty-common-dev,
     libfty-common-logging-dev,
-    libfty-common-mlm-dev,
     libfty-common-rest-dev,
     libfty-common-socket-dev,
     libfty-security-wallet-dev,
-    libtntdb-dev,
-    gcc (>= 4.9.0), g++ (>= 4.9.0),
     asciidoc-base | asciidoc, xmlto,
     dh-autoreconf
 
-Package: libfty-security-wallet-rest1
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: fty-security-wallet-rest shared library
- This package contains shared library for fty-security-wallet-rest:
- security wallet rest api
-
-Package: libfty-security-wallet-rest-dev
-Architecture: any
-Section: libdevel
-Depends:
-    ${misc:Depends},
-    libsodium-dev,
-    libzmq3-dev,
-    libczmq-dev (>= 3.0.2),
-    libfty-common-dev,
-    libcxxtools-dev,
-    libfty-common-logging-dev,
-    libfty-common-mlm-dev,
-    libfty-common-rest-dev,
-    libfty-common-socket-dev,
-    libfty-security-wallet-dev,
-    libtntdb-dev,
-    libfty-security-wallet-rest1 (= ${binary:Version})
-Description: fty-security-wallet-rest development tools
- This package contains development files for fty-security-wallet-rest:
- security wallet rest api
-
-# Customization over zproject-generated code follows
-# for the legacy-named metapackage to group the common
-# installation dependency for other components:
-# TODO: Revise the list, this one was copied from another project
 Package: fty-security-wallet-rest
 Architecture: any
 Section: net
 Priority: optional
-Depends:
-    libfty-security-wallet-rest1 (= ${binary:Version}),
-    ${misc:Depends},
-    tntnet-runtime,
-    malamute,
-    libfty-common1,
-    libfty-common-mlm1,
-    libfty-common-socket1,
-    libfty-common-db1,
-    libfty-common-rest1,
-    ipc-data
-Recommends: msmtp
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: grouping of end-user solution with fty-security-wallet-rest
-
-Package: fty-security-wallet-rest-dbg
-Architecture: any
-Section: debug
-Priority: optional
-Depends:
-    libfty-security-wallet-rest1 (= ${binary:Version}),
-    ${misc:Depends}
-Description: fty-security-wallet-rest debugging symbols
- This package contains the debugging symbols for fty-security-wallet-rest:
- security wallet rest api.
