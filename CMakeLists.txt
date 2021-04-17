@@ -29,7 +29,7 @@ etn_target(shared ${PROJECT_NAME}
 )
 
 # Get the ecpp
-file(GLOB ETN_IPM2_REST_ECPP_FILES
+file(GLOB ECPP_FILES
   ecpp/*.ecpp
 )
 
@@ -38,7 +38,7 @@ fty_ecppbuilder(
   TARGET ${PROJECT_NAME}
   WORKDIR src
   ECPP
-    ${ETN_IPM2_REST_ECPP_FILES}
+    ${ECPP_FILES}
 )
 
 add_subdirectory(tests)
