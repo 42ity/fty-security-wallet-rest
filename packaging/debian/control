@@ -41,9 +41,31 @@ Build-Depends: debhelper (>= 9),
     asciidoc-base | asciidoc, xmlto,
     dh-autoreconf
 
-Package: fty-security-wallet-rest
+Package: libfty-security-wallet-rest1
 Architecture: any
 Section: net
 Priority: optional
 Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: grouping of end-user solution with fty-security-wallet-rest
+
+# Customization over zproject-generated code follows
+# for the legacy-named metapackage to group the common
+# installation dependency for other components:
+# TODO: Revise the list, this one was copied from another project
+Package: fty-security-wallet-rest
+Architecture: any
+Section: net
+Priority: optional
+Depends:
+    libfty-security-wallet-rest1 (= ${binary:Version}),
+    ${misc:Depends},
+    tntnet-runtime,
+    malamute,
+    libfty-common1,
+    libfty-common-mlm1,
+    libfty-common-socket1,
+    libfty-common-db1,
+    libfty-common-rest1,
+    ipc-data
+Recommends: msmtp
 Description: grouping of end-user solution with fty-security-wallet-rest
