@@ -1,5 +1,5 @@
 /*  =========================================================================
-    rest_document_put - class description
+    restapi_helpers - Helpers
 
     Copyright (C) 2018 - 2020 Eaton
 
@@ -18,3 +18,38 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
     =========================================================================
 */
+
+#ifndef SECW_RESTAPI_HELPERS_H_INCLUDED
+#define SECW_RESTAPI_HELPERS_H_INCLUDED
+
+#include <string>
+#include <vector>
+
+namespace restapi
+{
+    static constexpr char END_POINT[] = "ipc://@/malamute";
+    static const std::string SECW_SOCKET_PATH = "/run/fty-security-wallet/secw.socket";
+    static constexpr char CLIENT_ID_FOR_MAPPING[] = "fty-security-wallet-rest-mapping";
+
+    //URL_PREFIX = /api/v1/admin/security-wallet/
+    static constexpr size_t URL_PREFIX_SIZE = 4;
+
+    class Path
+    {
+    public:
+        Path(const std::string & pathStr);
+
+        const std::string & getPathStr() const;
+        const std::string & getItem(size_t index) const;
+        std::size_t getNumberOfItem() const;
+
+    private:
+        std::string m_pathStr;
+        std::vector<std::string> m_items;
+    };
+
+} //namepace restapi
+
+void helpers_security_wallet_rest_test(bool verbose);
+
+#endif

@@ -19,7 +19,9 @@
     =========================================================================
 */
 
-#include "fty_security_wallet_rest_classes.h"
+#include "helpers_security_wallet_rest.h"
+#include <sstream>
+#include <assert.h>
 
 namespace restapi
 {
@@ -28,8 +30,8 @@ namespace restapi
     {
         std::stringstream stream;
         stream << m_pathStr.substr (0, m_pathStr.find ("?"));
-        std::string item;
 
+        std::string item;
         while(std::getline(stream, item, '/'))
         {
             if(!item.empty())
@@ -48,9 +50,37 @@ namespace restapi
         return m_items.at(index);
     }
 
-    size_t Path::getNumberOfItem() const
+    std::size_t Path::getNumberOfItem() const
     {
         return m_items.size();
     }
 }
 
+void helpers_security_wallet_rest_test(bool verbose)
+{
+    using namespace restapi;
+
+    {
+        Path path0("");
+        assert(path0.getNumberOfItem() == 0);
+
+        Path path1("0");
+        assert(path1.getNumberOfItem() == 1);
+
+        Path path2("0?");
+        assert(path2.getNumberOfItem() == 1);
+
+        Path path3("0?a");
+        assert(path3.getNumberOfItem() == 1);
+    }
+
+    {
+        const std::string input{"0/1/2/3/4/5?abcd"};
+        Path path{input};
+        assert(path.getPathStr() == input);
+        assert(path.getNumberOfItem() == 6);
+        for (std::size_t i = 0; i < path.getNumberOfItem(); ++i) {
+            assert(path.getItem(i) == std::to_string(i));
+        }
+    }
+}
