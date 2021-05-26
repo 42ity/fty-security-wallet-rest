@@ -50,7 +50,7 @@ fty_ecppbuilder(
 
 etn_test_target(${PROJECT_NAME}
     INCLUDE_DIR
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        src
     SOURCES
         tests/main.cc
     PREPROCESSOR
