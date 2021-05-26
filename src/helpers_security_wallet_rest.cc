@@ -56,7 +56,7 @@ namespace restapi
     }
 }
 
-void helpers_security_wallet_rest_test(bool verbose)
+void helpers_security_wallet_rest_test(bool /*verbose*/)
 {
     using namespace restapi;
 

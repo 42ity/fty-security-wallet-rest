@@ -8,6 +8,8 @@ project(fty_security_wallet_rest
 
 ##############################################################################################################
 find_package(fty-cmake PATHS ${CMAKE_BINARY_DIR}/fty-cmake)
+find_package(fty-cmake-rest PATHS ${CMAKE_BINARY_DIR}/fty-cmake-rest)
+resolve_lib(tntnet)
 ##############################################################################################################
 
 # Define the servlet
@@ -16,12 +18,16 @@ etn_target(shared ${PROJECT_NAME}
     src/*.cc
   INCLUDE_DIRS
     include
+  FLAGS
+    -Wno-deprecated-declarations
   USES
     fty-cmake-rest
     cxxtools
     tntdb
     tntnet
+    czmq
     fty_common
+    fty_common_mlm
     fty_common_logging
     fty_common_rest
     fty_common_socket
