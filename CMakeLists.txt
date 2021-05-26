@@ -49,7 +49,7 @@ fty_ecppbuilder(
 )
 
 etn_test_target(${PROJECT_NAME}
-    INCLUDE_DIRS
+    INCLUDE_DIR
         ${CMAKE_CURRENT_SOURCE_DIR}/src
     SOURCES
         tests/main.cc
