@@ -48,7 +48,18 @@ fty_ecppbuilder(
     ${ECPP_FILES}
 )
 
-add_subdirectory(tests)
+etn_test_target(${PROJECT_NAME}
+    INCLUDE_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+    SOURCES
+        tests/main.cc
+    PREPROCESSOR
+        -DCATCH_CONFIG_FAST_COMPILE
+    USES
+        Catch2::Catch2
+    SUBDIR
+        tests
+)
 
 # Install tntnet mapping file in etc/tntnet/bios.d/
 install(FILES ${PROJECT_SOURCE_DIR}/resources/41_secw-rest.xml DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/tntnet/bios.d/)
