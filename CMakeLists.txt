@@ -14,24 +14,25 @@ resolve_lib(tntnet)
 
 # Define the servlet
 etn_target(shared ${PROJECT_NAME}
-  SOURCES
-    src/*.cc
-  INCLUDE_DIRS
-    include
-  FLAGS
-    -Wno-deprecated-declarations
-  USES
-    fty-cmake-rest
-    cxxtools
-    tntdb
-    tntnet
-    czmq
-    fty_common
-    fty_common_mlm
-    fty_common_logging
-    fty_common_rest
-    fty_common_socket
-    fty_security_wallet
+    SOURCES
+        src/helpers_security_wallet_rest.cc
+        src/helpers_security_wallet_rest.h
+    INCLUDE_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+    FLAGS
+        -Wno-deprecated-declarations
+    USES
+        fty-cmake-rest
+        cxxtools
+        tntdb
+        tntnet
+        czmq
+        fty_common
+        fty_common_mlm
+        fty_common_logging
+        fty_common_rest
+        fty_common_socket
+        fty_security_wallet
 )
 
 # Get the ecpp
