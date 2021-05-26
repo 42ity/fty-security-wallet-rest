@@ -3,7 +3,7 @@ cmake_policy(VERSION 3.13)
 
 etn_test_target(${PROJECT_NAME}
     INCLUDE_DIRS
-        ../src
+        ${CMAKE_CURRENT_SOURCE_DIR}/../src
     SOURCES
         ../src/*
         src/main.cc
