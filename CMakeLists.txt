@@ -56,7 +56,8 @@ etn_test_target(${PROJECT_NAME}
     PREPROCESSOR
         -DCATCH_CONFIG_FAST_COMPILE
     USES
-        Catch2::Catch2
+        stdc++fs
+        pthread
     SUBDIR
         tests
 )
