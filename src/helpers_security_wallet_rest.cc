@@ -20,43 +20,42 @@
 */
 
 #include "helpers_security_wallet_rest.h"
-#include <sstream>
 #include <assert.h>
+#include <sstream>
 
-namespace restapi
+namespace restapi {
+
+Path::Path(const std::string& pathStr)
+    : m_pathStr(pathStr)
 {
-    Path::Path(const std::string & pathStr)
-        : m_pathStr(pathStr)
-    {
-        std::stringstream stream;
-        stream << m_pathStr.substr (0, m_pathStr.find ("?"));
+    std::stringstream stream;
+    stream << m_pathStr.substr(0, m_pathStr.find("?"));
 
-        std::string item;
-        while(std::getline(stream, item, '/'))
-        {
-            if(!item.empty())
-            {
-                m_items.push_back(item);
-            }
+    std::string item;
+    while (std::getline(stream, item, '/')) {
+        if (!item.empty()) {
+            m_items.push_back(item);
         }
-    }
-
-    const std::string & Path::getPathStr() const
-    {
-        return m_pathStr;
-    }
-    const std::string & Path::getItem(size_t index) const
-    {
-        return m_items.at(index);
-    }
-
-    std::size_t Path::getNumberOfItem() const
-    {
-        return m_items.size();
     }
 }
 
-void helpers_security_wallet_rest_test(bool verbose)
+const std::string& Path::getPathStr() const
+{
+    return m_pathStr;
+}
+const std::string& Path::getItem(size_t index) const
+{
+    return m_items.at(index);
+}
+
+std::size_t Path::getNumberOfItem() const
+{
+    return m_items.size();
+}
+
+} // namespace restapi
+
+void helpers_security_wallet_rest_test(bool /*verbose*/)
 {
     using namespace restapi;
 
@@ -76,7 +75,7 @@ void helpers_security_wallet_rest_test(bool verbose)
 
     {
         const std::string input{"0/1/2/3/4/5?abcd"};
-        Path path{input};
+        Path              path{input};
         assert(path.getPathStr() == input);
         assert(path.getNumberOfItem() == 6);
         for (std::size_t i = 0; i < path.getNumberOfItem(); ++i) {

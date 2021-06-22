@@ -8,24 +8,31 @@ project(fty_security_wallet_rest
 
 ##############################################################################################################
 find_package(fty-cmake PATHS ${CMAKE_BINARY_DIR}/fty-cmake)
+find_package(fty-cmake-rest PATHS ${CMAKE_BINARY_DIR}/fty-cmake-rest)
+resolve_lib(tntnet)
 ##############################################################################################################
 
 # Define the servlet
 etn_target(shared ${PROJECT_NAME}
-  SOURCES
-    src/*.cc
-  INCLUDE_DIRS
-    include
-  USES
-    fty-cmake-rest
-    cxxtools
-    tntdb
-    tntnet
-    fty_common
-    fty_common_logging
-    fty_common_rest
-    fty_common_socket
-    fty_security_wallet
+    SOURCES
+        src/helpers_security_wallet_rest.cc
+        src/helpers_security_wallet_rest.h
+    INCLUDE_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+    FLAGS
+        -Wno-deprecated-declarations
+    USES
+        fty-cmake-rest
+        cxxtools
+        tntdb
+        tntnet
+        czmq
+        fty_common
+        fty_common_mlm
+        fty_common_logging
+        fty_common_rest
+        fty_common_socket
+        fty_security_wallet
 )
 
 # Get the ecpp
@@ -41,7 +48,19 @@ fty_ecppbuilder(
     ${ECPP_FILES}
 )
 
-add_subdirectory(tests)
+etn_test_target(${PROJECT_NAME}
+    INCLUDE_DIR
+        src
+    SOURCES
+        tests/main.cc
+    PREPROCESSOR
+        -DCATCH_CONFIG_FAST_COMPILE
+    USES
+        stdc++fs
+        pthread
+    SUBDIR
+        tests
+)
 
 # Install tntnet mapping file in etc/tntnet/bios.d/
 install(FILES ${PROJECT_SOURCE_DIR}/resources/41_secw-rest.xml DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/tntnet/bios.d/)
