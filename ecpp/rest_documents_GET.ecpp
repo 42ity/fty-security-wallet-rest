@@ -37,10 +37,10 @@
 #include <fty_security_wallet.h>
 #include <fty_common_rest.h>
 #include <fty_common_socket.h>
+#include <fty_common_json.h>
 
 #include <cam_accessor.h>
 
-#include <cxxtools/jsonserializer.h>
 
 #include "helpers_security_wallet_rest.h"
 
@@ -121,8 +121,7 @@ UserInfo user;
 
     // Send reply.
     reply.setContentType("application/json;charset=UTF-8");
-    cxxtools::JsonSerializer serializer(reply.out());
-    serializer.serialize(rootSi);
+    reply.out() << JSON::writeToString(rootSi, false);
   }
   catch(const SecwUnknownPortfolioException& e)
   {
