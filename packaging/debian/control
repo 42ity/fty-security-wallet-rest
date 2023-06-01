@@ -1,9 +1,6 @@
 #
 #    fty-security-wallet-rest - Security wallet REST API
 #
-#    NOTE: This file was customized after generation,
-#    take care to keep this during updates.
-#
 #    Copyright (C) 2018 - 2020 Eaton
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -23,7 +20,7 @@
 Source: fty-security-wallet-rest
 Section: net
 Priority: optional
-Maintainer: fty-security-wallet-rest Developers <eatonipcopensource@eaton.com>
+Maintainer: fty-security-wallet-rest Developers <opensource@eaton.com>
 Standards-Version: 4.0.1.0
 Build-Depends: debhelper (>= 9),
     cmake (>=3.0),
@@ -48,10 +45,6 @@ Priority: optional
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: grouping of end-user solution with fty-security-wallet-rest
 
-# Customization over zproject-generated code follows
-# for the legacy-named metapackage to group the common
-# installation dependency for other components:
-# TODO: Revise the list, this one was copied from another project
 Package: fty-security-wallet-rest
 Architecture: any
 Section: net
