@@ -35,7 +35,8 @@
 #include <fty_security_wallet.h>
 #include <fty_common_rest.h>
 #include <fty_common_socket.h>
-#include <cxxtools/jsonserializer.h>
+#include <fty_common_json.h>
+#include <cxxtools/serializationinfo.h>
 
 #include "helpers_security_wallet_rest.h"
 
@@ -86,8 +87,7 @@ UserInfo user;
     cxxtools::SerializationInfo si;
     si.addMember("id") <<= newId;
 
-    cxxtools::JsonSerializer serializer(reply.out());
-    serializer.serialize(si);
+    reply.out() << JSON::writeToString(si, false);
 
     log_info_audit ("Request POST security-wallet create document SUCCESS");
   }
