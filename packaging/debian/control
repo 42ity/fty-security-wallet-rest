@@ -26,7 +26,6 @@ Build-Depends: debhelper (>= 9),
     cmake (>=3.0),
     fty-cmake-dev,
     libfty-cmake-rest-dev,
-    pkg-config,
     libcxxtools-dev,
     libtntnet-dev,
     libtntdb-dev,
@@ -34,9 +33,7 @@ Build-Depends: debhelper (>= 9),
     libfty-common-logging-dev,
     libfty-common-rest-dev,
     libfty-common-socket-dev,
-    libfty-security-wallet-dev,
-    asciidoc-base | asciidoc, xmlto,
-    dh-autoreconf
+    libfty-security-wallet-dev
 
 Package: libfty-security-wallet-rest1
 Architecture: any
